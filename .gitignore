@@ -1,0 +1,28 @@
+# Сборка
+dist/
+
+# Зависимости
+node_modules/
+
+# Логи и временные файлы
+*.log
+*.tgz
+screen-*.log
+keys.log
+tui-run.log
+palette.log
+slash.log
+dlg-*.log
+esc-*.log
+
+# Локальное окружение
+.env
+.env.*
+!.env.example
+
+# Редакторы и ОС
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
