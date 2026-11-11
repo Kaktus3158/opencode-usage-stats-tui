@@ -17,12 +17,12 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "compile": "node scripts/build.mjs",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run build",
+    "check": "npm run typecheck && npm run compile",
     "pack:check": "npm pack --dry-run",
     "install:local": "node scripts/install-local.mjs",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run compile"
   },
   "keywords": [
     "opencode",

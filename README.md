@@ -109,9 +109,11 @@ npm run check          # typecheck + build
 npm run install:local  # copy the sources into ~/.config/opencode/plugins/usage
 ```
 
-`npm run build` compiles `src/` into `dist/` with the very same Solid transform OpenCode applies to local plugins. That step is required: OpenCode does not run the Solid transform on files inside `node_modules`, so a published `.tsx` would lose its reactivity.
+`npm run compile` compiles `src/` into `dist/` with the very same Solid transform OpenCode applies to local plugins. That step is required: OpenCode does not run the Solid transform on files inside `node_modules`, so a published `.tsx` would lose its reactivity.
 
-The built `dist/` is committed to the repository on purpose. OpenCode installs plugin packages with scripts disabled, so a `prepare` script would never run and the package would arrive without its build. After changing the sources, run `npm run build` and commit the result; CI fails when the committed build drifts from the sources.
+The build script is called `compile` rather than `build` on purpose. npm prepares a git dependency by running `npm install` inside the clone whenever the package has a `build`, `install`, `prepare` or `postinstall` script, and that preparation is what breaks OpenCode's git installs.
+
+The built `dist/` is committed to the repository on purpose. OpenCode installs plugin packages with scripts disabled, so a `prepare` script would never run and the package would arrive without its build. After changing the sources, run `npm run compile` and commit the result; CI fails when the committed build drifts from the sources.
 
 `standalone/` holds a small separate program that renders the same table in its own window. It is not part of the published package.
 

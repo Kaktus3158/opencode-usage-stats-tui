@@ -38,7 +38,7 @@ jobs:
         run: npm run typecheck
 
       - name: Build
-        run: npm run build
+        run: npm run compile
 
       - name: Publish
         run: npm publish --provenance --access public
