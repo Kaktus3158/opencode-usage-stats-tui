@@ -25,5 +25,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check that dist matches the sources
+        run: |
+          if ! git diff --exit-code -- dist; then
+            echo "dist/ is out of date — run 'npm run build' and commit the result" >&2
+            exit 1
+          fi
+
       - name: Check package contents
         run: npm pack --dry-run
