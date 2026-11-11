@@ -1,6 +1,6 @@
 # Сборка: dist/ в репозитории нужен — OpenCode ставит плагины с
 # ignoreScripts, поэтому prepare-скрипт при установке не выполняется.
-# После правки исходников: npm run build && git add dist && git commit
+# После правки исходников: npm run compile && git add dist && git commit
 
 # Зависимости
 node_modules/

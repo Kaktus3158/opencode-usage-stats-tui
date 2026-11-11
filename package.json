@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "opencode-usage-stats-tui",
   "version": "0.1.0",
   "description": "Token usage statistics for the OpenCode TUI: requests, tokens and cost by model, session and day",
