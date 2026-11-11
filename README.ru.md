@@ -42,19 +42,25 @@
 У плагина есть и серверная, и TUI-часть, поэтому всё настраивается одной командой:
 
 ```sh
-opencode plugin add opencode-usage-stats-tui
+opencode plugin add github:Kaktus3158/opencode-usage-stats-tui
 ```
 
-Команда устанавливает пакет и добавляет его в глобальный `opencode.json`:
+Команда клонирует репозиторий и добавляет плагин в глобальный `opencode.json`:
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugins": ["opencode-usage-stats-tui"]
+  "plugins": ["github:Kaktus3158/opencode-usage-stats-tui"]
 }
 ```
 
 Если хотите настроить вручную — добавьте ту же строку в `~/.config/opencode/opencode.json`: TUI подхватит TUI-часть плагина из списка, который ведёт сервер.
+
+Пакет есть и в npm — если хотите ставить released-версию:
+
+```sh
+opencode plugin add opencode-usage-stats-tui
+```
 
 После перезапуска OpenCode откройте страницу:
 
@@ -104,6 +110,8 @@ npm run install:local  # скопировать исходники в ~/.config/
 ```
 
 `npm run build` компилирует `src/` в `dist/` тем же Solid-трансформом, который OpenCode применяет к локальным плагинам. Этот шаг обязателен: внутри `node_modules` OpenCode Solid-трансформ не запускает, поэтому опубликованный `.tsx` потерял бы реактивность.
+
+Собранный `dist/` лежит в репозитории намеренно: OpenCode ставит пакеты плагинов без выполнения скриптов, поэтому `prepare` не отработал бы и пакет пришёл бы без сборки. После правки исходников выполните `npm run build` и закоммитьте результат; CI падает, если сборка в репозитории разошлась с исходниками.
 
 В папке `standalone/` лежит отдельная маленькая программа, которая рисует ту же таблицу в своём окне. В published-пакет она не входит.
 
