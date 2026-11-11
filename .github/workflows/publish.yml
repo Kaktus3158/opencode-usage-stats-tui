@@ -1,7 +1,8 @@
 name: Publish
 
 # Публикация в npm по тегу релиза: v1.2.3 -> версия 1.2.3.
-# Доступ к npm — через OIDC (Trusted Publishing), токен не нужен.
+# Доступ к npm — секрет NPM_TOKEN, а если он не задан, то OIDC
+# (Trusted Publishing), которому секрет не нужен вовсе.
 on:
   release:
     types: [published]
@@ -13,6 +14,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -40,5 +43,10 @@ jobs:
       - name: Build
         run: npm run compile
 
-      - name: Publish
+      - name: Publish (npm token)
+        if: env.NODE_AUTH_TOKEN != ''
+        run: npm publish --access public
+
+      - name: Publish (Trusted Publishing)
+        if: env.NODE_AUTH_TOKEN == ''
         run: npm publish --provenance --access public

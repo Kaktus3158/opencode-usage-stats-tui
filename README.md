@@ -42,24 +42,24 @@ OpenCode ships a `/stats` poster with an activity calendar, but it does not tell
 The plugin has both a server part and a TUI part, so a single command sets everything up:
 
 ```sh
-opencode plugin add github:Kaktus3158/opencode-usage-stats-tui
+opencode plugin add opencode-usage-stats-tui
 ```
 
-The command clones the repository and adds the plugin to your global `opencode.json`:
+The command installs the package from npm and adds it to your global `opencode.json`:
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugins": ["github:Kaktus3158/opencode-usage-stats-tui"]
+  "plugins": ["opencode-usage-stats-tui"]
 }
 ```
 
 Prefer to configure it by hand? Add the same entry to `~/.config/opencode/opencode.json`; the TUI loads the plugin's TUI part from the list the server keeps.
 
-It is published to npm as well, if you would rather install a released version:
+If you would rather install the current state of the repository instead of a released version:
 
 ```sh
-opencode plugin add opencode-usage-stats-tui
+opencode plugin add github:Kaktus3158/opencode-usage-stats-tui
 ```
 
 Restart OpenCode afterwards, then open the page:
@@ -116,6 +116,16 @@ The build script is called `compile` rather than `build` on purpose. npm prepare
 The built `dist/` is committed to the repository on purpose. OpenCode installs plugin packages with scripts disabled, so a `prepare` script would never run and the package would arrive without its build. After changing the sources, run `npm run compile` and commit the result; CI fails when the committed build drifts from the sources.
 
 `standalone/` holds a small separate program that renders the same table in its own window. It is not part of the published package.
+
+## Releases
+
+```sh
+npm publish --access public
+```
+
+npm reviews a new release before it goes public, so it can take a few minutes before the version shows up in the registry.
+
+`.github/workflows/publish.yml` publishes from a GitHub release tag. It uses the `NPM_TOKEN` repository secret when one is set, and otherwise publishes through Trusted Publishing (OIDC), which needs no secret at all. One caveat: a token that bypasses two-factor authentication may not configure Trusted Publishing — npm rejects that — so switching to OIDC needs an account with a second factor enrolled.
 
 ## License
 
